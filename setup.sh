@@ -6,7 +6,7 @@
 chmod +x bri.sh
 
 # copy it to /usr/bin/ so that it's a command 'bri'
-gksudo ln -s ./bri.sh /usr/bin/bri
+gksudo "cp ./bri.sh /usr/bin/bri"
 
 
 
