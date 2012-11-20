@@ -10,3 +10,7 @@ Otherwise, as you increment/decrement you're going to hit useless values - i.e. 
 
 I would like the setup script to extract the expected range from `[THAT ONE FILE, ABOVE]`, and then adjust `interval` in `config.cfg` accordingly.
 
+Change brightness on plugging power in (maybe)
+----------------------------------------------
+
+I might do this, depending on whether it can be done well without incurring an additional background process.
