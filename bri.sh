@@ -24,7 +24,7 @@
 ## Initialize ##
 ################
 
-if [ ! -f "./current-brightness" ] ; then
+if [ ! -f "/tmp/current-brightness" ] ; then
     # if we don't have a file, start at default
     brightness=$default
 else
@@ -72,7 +72,7 @@ elif [ "$brightness" -lt 0 ] ; then
 fi
 
 # save setting for next time
-echo "${brightness}" > ./current-brightness
+echo "${brightness}" > /tmp/current-brightness
 
 ###################
 ## Main function ##
