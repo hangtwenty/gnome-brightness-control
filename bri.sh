@@ -24,12 +24,14 @@
 ## Initialize ##
 ################
 
-if [ ! -f "/tmp/current-brightness" ] ; then
+current_brightness_file="/tmp/gnome-brightness-control"
+
+if [ ! -f $current_brightness_file ] ; then
     # if we don't have a file, start at default
     brightness=$default
 else
     # otherwise read the value from the file
-    brightness=`cat ./current-brightness`
+    brightness=`cat $current_brightness_file`
 fi
 
 #################
@@ -72,7 +74,7 @@ elif [ "$brightness" -lt 0 ] ; then
 fi
 
 # save setting for next time
-echo "${brightness}" > /tmp/current-brightness
+echo "${brightness}" > $current_brightness_file
 
 ###################
 ## Main function ##
