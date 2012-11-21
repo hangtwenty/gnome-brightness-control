@@ -5,7 +5,10 @@
 # make sure bri.sh is executable
 chmod +x bri.sh
 
-# copy it to /usr/bin/ so that it's a command 'bri'
+# copy .bri (config file) to ~/.bri
+cp ./.bri ~/.bri
+
+# copy bri.sh to /usr/bin/ so that it's a command 'bri'
 gksudo cp ./bri.sh /usr/bin/bri && exit 0
 
 
