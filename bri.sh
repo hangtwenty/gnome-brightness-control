@@ -68,7 +68,7 @@ echo "${brightness}" > $current_brightness_file
 gdbus call --session --dest org.gnome.SettingsDaemon --object-path /org/gnome/SettingsDaemon/Power --method org.gnome.SettingsDaemon.Power.Screen.SetPercentage $brightness
 
 ##########################
-## Possible functions ? ##
+## Notes for the future ##
 ##########################
 
 # Here is somebody's script to change brightness on plugging in the power vs. battery ... 
