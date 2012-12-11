@@ -2,6 +2,22 @@
 # setup.sh: set up gnome-brightness-control as command 'bri'
 # author: Michael Floering
 
+#########################################################
+## Tell user the optimal range of values for $interval ##
+#########################################################
+
+# read in max brightness
+acpi_max_brightness=`cat /sys/class/backlight/acpi_video0/max_brightness`
+echo "Your system's brightness ranges from 0 to $acpi_max_brightness."
+# use bc to turn this range into a percentage
+optimal_interval=`echo "scale = 0 ; 100 / $acpi_max_brightness" | bc`
+# inform user
+echo "You should set your interval to something like: $optimal_interval."
+
+#############
+## Install ##
+#############
+
 # factor out some literals
 bri='bri' # the command name `bri`
 _bri='.bri' # the name of the configuration file
