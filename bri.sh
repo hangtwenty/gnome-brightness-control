@@ -25,13 +25,6 @@ fi
 ### Got argument; parse.
 if [ "$1" ]; then
     case "$1" in
-        thaw|resume)
-            # bri is being run on returning from hibernation/suspend.
-            # (on Ubuntu scripts placed /etc/pm/sleep.d/ are 
-            # run as root-user with args "thaw" or "resume",
-            # upon waking from hiberation/suspend.
-            brightness=$default
-            ;;
         +) # increment
             echo "Incrementing by $interval percent"
             brightness=`expr ${brightness} + ${interval}`
@@ -49,6 +42,13 @@ if [ "$1" ]; then
                 echo "Less than one hundred percent; setting to 0% instead"
                 brightness=0
             fi
+            ;;
+        thaw|resume)
+            # bri is being run on returning from hibernation/suspend.
+            # (on Ubuntu scripts placed /etc/pm/sleep.d/ are 
+            # run as root-user with args "thaw" or "resume",
+            # upon waking from hiberation/suspend.
+            brightness=$default
             ;;
         *) # does not match any accepted argument
             echo "Not an integer; setting to default percentage instead"
