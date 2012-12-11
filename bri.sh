@@ -22,28 +22,39 @@ fi
 ## Handle args ##
 #################
 
-### Called without argument; 'reset' brightness to default
-if [ ! "$1" ]; then
+### Got argument; parse.
+if [ "$1" ]; then
+    case "$1" in
+        thaw|resume)
+            # good: thaw/resume
+            # (on Ubuntu scripts placed /etc/pm/sleep.d/ are 
+            # run as root-user with args "thaw" or "resume",
+            # upon waking from hiberation/suspend.
+            brightness=$default
+            ;;
+        *)
+            # good: + or -
+            if [[ "$1" =~ ^\+$ ]] ; then
+                echo "Incrementing by $interval percent"
+                brightness=`expr ${brightness} + ${interval}`
+            elif [[ "$1" =~ ^\-$ ]] ; then
+                echo "Decrementing by $interval percent"
+                brightness=`expr ${brightness} - ${interval}`
+            
+            # tentatively good: is either an integer or invalid.
+            # interpret the value below.
+            else
+                brightness=$1
+            fi
+            ;;
+    esac
+elif [ ! "$1" ]; then
+    ### Called without argument; 'reset' brightness to default
     echo "No percentage; setting to default instead"
     brightness=$default
-
-### Parse arguments
-else
-    # good: + or -
-    if [[ "$1" =~ ^\+$ ]] ; then
-        echo "Incrementing by $interval percent"
-        brightness=`expr ${brightness} + ${interval}`
-    elif [[ "$1" =~ ^\-$ ]] ; then
-        echo "Decrementing by $interval percent"
-        brightness=`expr ${brightness} - ${interval}`
-    # good: integers (in range 0-100 if they got to this point)
-    else
-        brightness=$1
-    fi
 fi
 
-### Weed out bad values for the argument
-
+### Interpret $brightness - 
 # bad: not +/- or an integer
 if ! [[ "$brightness" =~ ^[-]?[0-9]+$ ]] ; then
     echo "Not an integer; setting to default percentage instead"
