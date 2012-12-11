@@ -70,16 +70,3 @@ echo "${brightness}" > $current_brightness_file
 
 # source that pointed me to this command: http://askubuntu.com/questions/178686/can-i-set-superuser-inside-the-launcher
 gdbus call --session --dest org.gnome.SettingsDaemon --object-path /org/gnome/SettingsDaemon/Power --method org.gnome.SettingsDaemon.Power.Screen.SetPercentage $brightness
-
-##########################
-## Notes for the future ##
-##########################
-
-# Here is somebody's script to change brightness on plugging in the power vs. battery ... 
-# http://askubuntu.com/questions/93601/change-screen-brightness-automatically-on-ac-connection-disconnection
-
-
-
-
-
-
