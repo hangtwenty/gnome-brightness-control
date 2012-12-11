@@ -45,16 +45,20 @@ Install
     cd <path/to/this/repo>
     sudo bash setup.sh
 
-### (What the setup script does)
+Jot down the `interval` setting it recommends.
 
-Read the code in `setup.sh` if you want to make sure it doesn't do anything bad. In short: it copies the script in the executable scripts directory (`/usr/bin/`), then makes a link to that script in the power manager's suspension/hiberation scripts directory (`/etc/pm/sleep.d/`). It also copies the configuration file in your home directory.
+### Do I *need* to run it as root?
+
+Yes. Read the code in `setup.sh` if you want to make sure it doesn't do anything bad.
+
+In short: it copies the script in the executable scripts directory (`/usr/bin/`), then makes a link to that script in the power manager's suspension/hiberation scripts directory (`/etc/pm/sleep.d/`). Both of these actions need root permissions.
 
 Configuration
 -------------
 
 You should now have a configuration file `~/.bri`. Edit it to change `bri`'s settings.
 
-There is one setting you will certainly want to change - `bri_interval`. The optimal setting for this variable differs with your hardware. *Finding out what to put here* can be annoying. I will update with good instructions, soon.
+There is one setting you will certainly want to change - `bri_interval`. This is the number of percentage points to increment/decrement by when using `bri +` orr `bri -`. The optimal interval differs with your hardware, but the setup script should have recommended a good setting for `bri_interval` on your system. Set `bri_interval` to the value it recommended, then try it out. You may want to fiddle with this, adding or subtracting one point -- or if you *really* like to fiddle, try changing the setting of `bri_minimum`.
 
 The two other settings, `bri_persist` and `bri_default` are related. If `bri_persist` is `true`, executing `bri` without an argument will set the brightness to the last brightness `bri` knew about. If you keep this value set to `true`, and call `bri` as a startup script, you will have the effect of consistent brightness. Otherwise, some part of your Linux environment may set the brightness back to 100 (etc.) upon booting or waking the computer (this is my experience).
 
@@ -66,19 +70,6 @@ If you are using Ubuntu, I would recommend that you go into `System Settings > B
 
 Planned work
 ============
-
-Smart setup script
---------------------
-
-The system file that stores your current brightness is something like `/sys/class/backlight/acpi_video0/brightness`. The range of appropriate values for this file differs with your hardware. On my computer it's 0 to 7. But `gdbus` function this script utilizes expects a number from 0 to 100.
-
-Thus, the most useful `interval` setting in `config.cfg` is going to reflect the ratio of 0-100 to the smaller range (i.e. 0-7).
-
-With an inappropriate `interval` setting you're going to hit useless values as you increment/decrement - i.e. two consecutive percentage-values that map to the same value in the smaller range.
-
-On my computer, 12 is the best interval and (almost) each increment/decrement results in an actual change in brightness.
-
-I would like the setup script to extract the expected range from `/sys/class/backlight/acpi_video0/max_brightness/`, and then adjust `interval` in `~/.bri` accordingly.
 
 Change brightness on plugging in your laptop
 ----------------------------------------------
