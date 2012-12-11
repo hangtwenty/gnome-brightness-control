@@ -32,20 +32,20 @@ if [ "$1" ]; then
             # upon waking from hiberation/suspend.
             brightness=$default
             ;;
-        ^\+$) # increment
+        +) # increment
             echo "Incrementing by $interval percent"
             brightness=`expr ${brightness} + ${interval}`
             ;;
-        ^\-$) # decrement
+        -) # decrement
             echo "Decrementing by $interval percent"
             brightness=`expr ${brightness} - ${interval}`
             ;;
-        ^[-]?[0-9]+$) # +, -, or an integer
+        [0-9]) # is an integer
             # reset integers out of the range 0-100 to min/max of that range
-            if [ "$brightness" -gt 100 ] ; then
+            if [ "$1" -gt 100 ] ; then
                 echo "Greater than one hundred percent; setting to 100% instead"
                 brightness=100
-            elif [ "$brightness" -lt 0 ] ; then
+            elif [ "$1" -lt 0 ] ; then
                 echo "Less than one hundred percent; setting to 0% instead"
                 brightness=0
             fi
