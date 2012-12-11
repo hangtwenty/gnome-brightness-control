@@ -12,7 +12,7 @@ current_brightness_file="/tmp/gnome-brightness-control"
 
 if [ ! -f $current_brightness_file ] ; then
     # if we don't have a file, start at default
-    brightness=$default
+    brightness=$bri_default
 else
     # otherwise read the value from the file
     brightness=`cat $current_brightness_file`
@@ -26,12 +26,12 @@ fi
 if [ "$1" ]; then
     case "$1" in
         +) # increment
-            echo "Incrementing by $interval percent"
-            brightness=`expr ${brightness} + ${interval}`
+            echo "Incrementing by $bri_interval percent"
+            brightness=`expr ${brightness} + ${bri_interval}`
             ;;
         -) # decrement
-            echo "Decrementing by $interval percent"
-            brightness=`expr ${brightness} - ${interval}`
+            echo "Decrementing by $bri_interval percent"
+            brightness=`expr ${brightness} - ${bri_interval}`
             ;;
         [0-9]) # is an integer
             # reset integers out of the range 0-100 to min/max of that range
@@ -48,17 +48,17 @@ if [ "$1" ]; then
             # (on Ubuntu scripts placed /etc/pm/sleep.d/ are 
             # run as root-user with args "thaw" or "resume",
             # upon waking from hiberation/suspend.
-            brightness=$default
+            brightness=$bri_default
             ;;
         *) # does not match any accepted argument
             echo "Not an integer; setting to default percentage instead"
-            brightness=$default
+            brightness=$bri_default
             ;;
     esac
 elif [ ! "$1" ]; then
     ### Called without argument; 'reset' brightness to default
     echo "No percentage; setting to default instead"
-    brightness=$default
+    brightness=$bri_default
 fi
 
 # save setting for next time
