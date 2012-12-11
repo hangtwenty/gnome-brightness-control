@@ -93,9 +93,11 @@ fi
 # save setting for next time
 echo "${brightness}" > $current_brightness_file
 
-###################
-## Main function ##
-###################
+########################
+## Set the brightness ##
+########################
 
 # source that pointed me to this command: http://askubuntu.com/questions/178686/can-i-set-superuser-inside-the-launcher
 gdbus call --session --dest org.gnome.SettingsDaemon --object-path /org/gnome/SettingsDaemon/Power --method org.gnome.SettingsDaemon.Power.Screen.SetPercentage $brightness
+
+exit 0
