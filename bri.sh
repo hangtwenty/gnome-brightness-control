@@ -2,7 +2,7 @@
 # gnome-brightness-control.sh: script to change laptop brightness in gnome
 # author: Michael Floering
 
-source ~/.bri # load user configurationxsy
+source ~/.bri # load user configuration
 
 ################
 ## Initialize ##
