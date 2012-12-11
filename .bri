@@ -8,8 +8,8 @@
 
 ### Essential config
 
-  # default: percentage to use if none specified (such as at startup)
-  default=40
+  # default: percentage to use if called with no argument and resume == false
+  default=36
   # interval: number of percentage points to increment/decrement
   interval=12
 
