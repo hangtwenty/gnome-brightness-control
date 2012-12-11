@@ -1,21 +1,15 @@
 #!/bin/bash
-# .bri: config for bri.sh in gnome-brightness-control
+# .bri: config for `bri` command from gnome-brightness-control
 # author: Michael Floering
 
 ###################
 ## Configuration ##
 ###################
 
-### Essential config
+# interval: number of percentage points to increment/decrement
+bri_interval=12
+# persist: if true, boot to last value instead of default value
+bri_persist=true
+# default: percentage to use if called with no argument and resume == false
+bri_default=36
 
-  # default: percentage to use if called with no argument and resume == false
-  bri_default=36
-  # interval: number of percentage points to increment/decrement
-  bri_interval=12
-  # persist: if true, boot to last value instead of default value
-  bri_persist=true
-
-### Not yet implemented
-
-  # wrap: if true, going above 100 loops back to 0, and vice versa
-  bri_wrap=false
