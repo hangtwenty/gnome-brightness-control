@@ -1,4 +1,4 @@
-## gnome-brightness-control
+## Description
 
 This is a simple script for manipulating brightness in the GNOME desktop environment. It may be useful if you are using GNOME and you cannot, out of the box, manipulate your laptop's brightness freely, easily, or consistently.
 
