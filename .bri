@@ -7,9 +7,17 @@
 ###################
 
 # interval: number of percentage points to increment/decrement
-bri_interval=12
+# must be an integer
+bri_interval=14
 # persist: if true, boot to last value instead of default value
+# must be true or false
 bri_persist=true
 # default: percentage to use if called with no argument and resume == false
+# must be an integer between 0 and 100
 bri_default=36
 
+# minimum: will not go below this percentage.
+# use this to "offset" the range of values achieved by 
+# incrementing/decrementing by $interval.
+# must be an integer between 0 and 100
+bri_minimum=1

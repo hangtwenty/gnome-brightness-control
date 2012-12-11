@@ -80,9 +80,9 @@ if [[ "$brightness" =~ ^[-]?[0-9]+$ ]] ; then
     if [ "$brightness" -gt 100 ] ; then
         echo "Greater than one hundred percent; setting to 100% instead"
         brightness=100
-    elif [ "$brightness" -lt 0 ] ; then
-        echo "Less than one hundred percent; setting to 0% instead"
-        brightness=0
+    elif [ "$brightness" -lt $bri_minimum ] ; then
+        echo "Less than minimum; setting to minimum instead ($bri_minimum)"
+        brightness=$bri_minimum
     fi
 else
     echo "For some reason, brightness is $brightness and is not a number."
