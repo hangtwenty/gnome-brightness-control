@@ -26,46 +26,39 @@ fi
 if [ "$1" ]; then
     case "$1" in
         thaw|resume)
-            # good: thaw/resume
+            # bri is being run on returning from hibernation/suspend.
             # (on Ubuntu scripts placed /etc/pm/sleep.d/ are 
             # run as root-user with args "thaw" or "resume",
             # upon waking from hiberation/suspend.
             brightness=$default
             ;;
-        *)
-            # good: + or -
-            if [[ "$1" =~ ^\+$ ]] ; then
-                echo "Incrementing by $interval percent"
-                brightness=`expr ${brightness} + ${interval}`
-            elif [[ "$1" =~ ^\-$ ]] ; then
-                echo "Decrementing by $interval percent"
-                brightness=`expr ${brightness} - ${interval}`
-            
-            # tentatively good: is either an integer or invalid.
-            # interpret the value below.
-            else
-                brightness=$1
+        ^\+$) # increment
+            echo "Incrementing by $interval percent"
+            brightness=`expr ${brightness} + ${interval}`
+            ;;
+        ^\-$) # decrement
+            echo "Decrementing by $interval percent"
+            brightness=`expr ${brightness} - ${interval}`
+            ;;
+        ^[-]?[0-9]+$) # +, -, or an integer
+            # reset integers out of the range 0-100 to min/max of that range
+            if [ "$brightness" -gt 100 ] ; then
+                echo "Greater than one hundred percent; setting to 100% instead"
+                brightness=100
+            elif [ "$brightness" -lt 0 ] ; then
+                echo "Less than one hundred percent; setting to 0% instead"
+                brightness=0
             fi
+            ;;
+        *) # does not match any accepted argument
+            echo "Not an integer; setting to default percentage instead"
+            brightness=$default
             ;;
     esac
 elif [ ! "$1" ]; then
     ### Called without argument; 'reset' brightness to default
     echo "No percentage; setting to default instead"
     brightness=$default
-fi
-
-### Interpret $brightness - 
-# bad: not +/- or an integer
-if ! [[ "$brightness" =~ ^[-]?[0-9]+$ ]] ; then
-    echo "Not an integer; setting to default percentage instead"
-    brightness=$default
-# bad: integers out of the range 0-100
-elif [ "$brightness" -gt 100 ] ; then
-    echo "Greater than one hundred percent; setting to 100% instead"
-    brightness=100
-elif [ "$brightness" -lt 0 ] ; then
-    echo "Less than one hundred percent; setting to 0% instead"
-    brightness=0
 fi
 
 # save setting for next time
